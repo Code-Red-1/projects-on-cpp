@@ -1,0 +1,82 @@
+#include <iostream>
+#include <iomanip>
+void showbalance(double balance);
+double withdraw(double balance);
+double deposit();
+
+int main()
+{
+        double balance = 0;
+        int choice = 0;
+        do
+        {
+                  
+                std::cout << "1.Currentbalance\n";
+                std::cout << "2.Withdraw\n";
+                std::cout << "3.Deposit\n";
+                std::cout << "4.Exit\n";
+                std::cout << "Enter Your Choice:";
+                std::cin >> choice;
+ 
+                std::cin.clear();
+                fflush(stdin);
+
+                switch (choice)
+                {
+                case 1:
+                        showbalance(balance);
+                        break;
+                case 2:
+                        balance -= withdraw(balance);
+                        showbalance(balance);
+                        break;
+                case 3:
+                        balance += deposit();
+                        showbalance(balance);
+                        break;
+                case 4:
+                        std::cout << "THANKS FOR VISITING";
+                        break;
+                default:
+                        std::cout << "INVALID CHOICE\n";
+                }
+        } while (choice != 4);
+}
+void showbalance(double balance)
+{
+        std::cout << "Your Current Balance:& " << std::setprecision(2) << std::fixed << balance << '\n';
+}
+double withdraw(double balance)
+{
+        double amount = 0;
+        std::cout << "Enter Amount To Withdrawn:";
+        std::cin >> amount;
+        if (amount > balance)
+        {
+                std::cout << "Insufficient Funds\n";
+                return 0;
+        }
+        else if (amount < 0)
+        {
+                std::cout << "Enter Valid Amount\n";
+                return 0;
+        }
+        else
+        {
+                return amount;
+        }
+}
+double deposit()
+{
+        double amount = 0;
+        std::cout << "Enter Amount To Deposited:";
+        std::cin >> amount;
+        if (amount > 0)
+        {
+                return amount;
+        }
+        else
+        {
+                std::cout << "That's Not A Valid Amount:\n";
+        }
+}
