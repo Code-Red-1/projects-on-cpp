@@ -1,0 +1,117 @@
+#include<iostream>
+#include<fstream>
+using namespace std;
+
+
+class temp{
+ 
+string username,password,email;
+string searchname ,searchpass,searchemail;
+fstream file;
+public:
+ void login();
+ void signUp();
+ void forgot();
+}obj;
+
+int main(){
+
+char choice;
+cout<<"\n1-Login";
+cout<<"\n2- Sign-Up";
+cout<<"\n3-Forgot Password";
+cout<<"\n4-Exit:";
+cout<<"\nEnter Your Choice:";
+cin>>choice;
+
+switch(choice){
+    case '1': obj.login();
+           break;
+
+    case '2':obj.signUp();
+           break;
+
+    case '3':obj.forgot();
+           break;
+
+    case '4':
+           return 0;
+           break;
+    
+    default:
+        cout<<"Enter Valid Details...!!";
+          break;
+
+}
+}
+
+void temp::signUp(){
+    cout<<"\nEnter Your Username:";
+    getline(cin,username);
+   cout<<"\nEnter Your Email :";
+    getline(cin,email);
+    cout<<"\nEnter Your Password :";
+    getline(cin,password);
+    
+    file.open("logindata.txt",ios::out|ios::app);
+    file <<username<<"*"<<email<<"*"<<password<<endl;
+     file.close();
+}
+
+void temp::login(){
+    
+    cout<<"-------LOGIN---------"<<endl;
+    cout<<"Enter Your Username:"<<endl;
+    getline(cin,searchname);
+    cout<<"Enter Your Password:"<<endl;
+    getline(cin,searchpass);
+     file.open("logindata.txt",ios::in);
+     getline(file,username,'*');
+     getline(file,email,'*');
+     getline(file,password,'\n');
+
+     while(!file.eof()){
+      if(username==searchname){
+        if(password==searchpass){
+            cout<<"\nAcoount Login Succesfull...!";
+            cout<<"\nUsername:"<<username<<endl;
+            cout<<"\nEmail:"<<email<<endl;
+        } else{
+            cout<<"Password is Incorrect..!";
+        }
+      }
+      getline(file,username,'*');
+      getline(file,email,'*');
+      getline(file,password,'\n');
+
+     }
+     file.close();
+}
+
+
+void temp::forgot()  {
+   cout<<"\nEnter Your Username: ";
+   getline(cin,searchname);
+   cout<<"\nEnter Your Email:";
+   getline(cin,searchemail);
+
+   file.open("logindata.txt",ios::in);
+   getline(file,username,'*');
+   getline(file,email,'*');
+   getline(file,password,'\n');
+   while(!file.eof()){
+    if(username==searchname){
+        if(email==searchemail){
+      cout<<"\nAccount Found..!";
+        cout<<"Your Password:"<<password<<endl;
+        } else{
+            cout<<"Not Found!\n";
+        }
+    }else{
+        cout<<"Not Found!\n";
+    }
+
+
+   }
+   file.close();
+}
