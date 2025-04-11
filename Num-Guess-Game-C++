@@ -1,0 +1,35 @@
+#include <iostream>
+#include <ctime>
+int main()
+{
+    int num;
+    int guess = 0;
+    int user;
+
+    srand(time(NULL));
+    num = (rand() % 100) + 1;
+
+    std::cout << "WELCOME IN THE GAME " << '\n';
+
+    do
+    {
+        std::cout << "ENTER YOUR GUESS:";
+        std::cin >> user;
+        guess++;
+        if (user > num)
+        {
+            std::cout << "Enter Lower Number" << '\n';
+        }
+        else if (user < num)
+        {
+            std::cout << "Enter Higher Number" << '\n';
+        }
+        else
+        {
+            std::cout << "YOU'RE CORRECT AND TRIED :" << guess << '\n';
+        }
+    } while (user != num);
+    std::cout << "THANKS FOR PLAYING" << '\n';
+
+    return 0;
+}
